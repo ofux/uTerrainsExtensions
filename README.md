@@ -4,7 +4,7 @@
 Of course, [Ultimate Terrains](https://assetstore.unity.com/packages/tools/terrain/ultimate-terrains-voxel-terrain-engine-31100) is required (otherwise, these scripts are useless).
 
 ## Why this repo?
-It will be easier to share new scripts through this repository than waiting every time for a full Ultimate Terrains release. Another advantage is that everyone can contribute and share its uTerrains scripts with other users. 
+It will be easier to share new scripts through this repository than waiting every time for a full Ultimate Terrains release. Another advantage is that everyone can contribute and share his scripts with other users. 
 
 ## How to use
 
