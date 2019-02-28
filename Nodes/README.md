@@ -7,7 +7,7 @@ A node can have many inputs, but only one output. The input and output values of
 
 ## Combiners
 
-Combiners node combine the outputs of other nodes in different ways. For example, you may use them to add, subsctract, multiply or divide node outputs between each others.
+Combiners node combine the outputs of other nodes in different ways. For example, you may use them to add, subsctract or multiply node outputs between each others.
 
 ## Filters
 
