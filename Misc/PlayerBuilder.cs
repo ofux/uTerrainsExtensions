@@ -73,7 +73,9 @@ public class PlayerBuilder : MonoBehaviour
 
 
         voxelTypeDropdown.ClearOptions();
-        voxelTypeDropdown.AddOptions(new List<string>(Terrain.VoxelTypeSet.VoxelTypeNames));
+        var voxelTypeNames = new List<string>(Terrain.VoxelTypeSet.VoxelTypeNames);
+        voxelTypeNames.Insert(0, "- none -");
+        voxelTypeDropdown.AddOptions(voxelTypeNames);
         voxelTypeDropdown.onValueChanged.AddListener(delegate { OnDropdownVoxelTypeChanged(voxelTypeDropdown); });
 
         nonStopEditingToggle.onValueChanged.AddListener(delegate { OnToggleNonStopEditingChanged(nonStopEditingToggle); });
@@ -185,7 +187,7 @@ public class PlayerBuilder : MonoBehaviour
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? Cursor.lockState = CursorLockMode.None : Cursor.lockState = CursorLockMode.Locked;
         }
 
-        if (!Terrain.IsLoaded || voxelType == null || string.IsNullOrEmpty(operationName))
+        if (!Terrain.IsLoaded || string.IsNullOrEmpty(operationName))
             return;
 
         var intersection = GetIntersectionWithTerrain(dig);
@@ -418,9 +420,6 @@ public class PlayerBuilder : MonoBehaviour
     private void OnTerrainLoaded(UltimateTerrain sender)
     {
         PreventPlayerMovesUntilLoaded = false;
-        if (Terrain.VoxelTypeSet.VoxelTypeNames != null && Terrain.VoxelTypeSet.VoxelTypeNames.Length > 0) {
-            voxelType = Terrain.VoxelTypeSet.GetVoxelType(Terrain.VoxelTypeSet.VoxelTypeNames[0]);
-        }
     }
 
     private RaycastHit? GetIntersectionWithTerrain(bool isDigging)
