@@ -13,12 +13,12 @@ public class CurveFilter : FilterNode
     {
         // Create a copy of the animation curve to avoid any concurrency issue
         this.curve = new AnimationCurve(curve.keys);
-        
+
         this.inMin = inMin;
         this.inMax = inMax;
         this.outMin = outMin;
         this.outMax = outMax;
-        
+
         if (inMax < inMin + 0.001)
             this.inMax = inMin + 0.001;
         if (outMax < outMin + 0.001)
@@ -27,7 +27,7 @@ public class CurveFilter : FilterNode
 
     protected override double ExecuteFilter(double x, double y, double z, CallableNode flow, double inputValue)
     {
-        var v01 = UMath.InverseLerp(inMin, inMax, inputValue);
+        var v01 = UMath.Clamp(0, 1, UMath.InverseLerp(inMin, inMax, inputValue));
         var vC = curve.Evaluate((float) v01);
         return UMath.Lerp(outMin, outMax, vC);
     }
