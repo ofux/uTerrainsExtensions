@@ -17,15 +17,15 @@ public class ClampFilterSerializable : FilterNodeSerializable
         get { return "Clamp"; }
     }
 
-    [SerializeField] private Vector2 outBounds = new Vector2(-1,1);
+    [SerializeField] private Vector2 outBounds = new Vector2(-1, 1);
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorGUIUtility.labelWidth = 60;
         EditorUtils.CenteredBoxedLabelField(string.Format("out ∈ [{0},{1}]", outBounds.x, outBounds.y));
         outBounds = EditorUtils.MinMaxField(outBounds);
-        base.OnEditorGUI(uTerrain);
+        base.OnEditorGUI(uTerrain, graph);
         EditorGUIUtility.labelWidth = 0;
 #endif
     }

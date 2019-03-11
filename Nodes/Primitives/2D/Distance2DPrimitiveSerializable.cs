@@ -14,7 +14,7 @@ public class Distance2DPrimitiveSerializable : Primitive2DNodeSerializable
     public override string Title {
         get { return "Distance 2D"; }
     }
-    
+
     public override int EditorWidth {
         get { return 100; }
     }
@@ -22,7 +22,7 @@ public class Distance2DPrimitiveSerializable : Primitive2DNodeSerializable
     // Useful properties for the module
     [SerializeField] private Vector2 origin;
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorGUIUtility.labelWidth = 60;

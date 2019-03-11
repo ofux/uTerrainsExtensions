@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UltimateTerrains;
 using UltimateTerrainsEditor;
-using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
 
 #endif
 
@@ -17,11 +15,11 @@ public class InvertFilterSerializable : FilterNodeSerializable
         get { return "Invert"; }
     }
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorUtils.CenteredBoxedLabelField("out = -in");
-        base.OnEditorGUI(uTerrain);
+        base.OnEditorGUI(uTerrain, graph);
 #endif
     }
 

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UltimateTerrains;
-using LibNoise;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -15,7 +14,7 @@ public sealed class FastNoise3DPrimitiveSerializable : Primitive3DNodeSerializab
     public override string Title {
         get { return "Fast Noise 3D"; }
     }
-    
+
     // Useful properties for the module
     [SerializeField] private float frequency = 0.01f;
     [SerializeField] private float scale = 1f;
@@ -99,9 +98,8 @@ public sealed class FastNoise3DPrimitiveSerializable : Primitive3DNodeSerializab
         set { cellularDistanceFunction = value; }
     }
 
-    
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         Seed = EditorGUILayout.IntField("Seed:", Seed);
@@ -123,7 +121,7 @@ public sealed class FastNoise3DPrimitiveSerializable : Primitive3DNodeSerializab
 
                 EditorGUILayout.BeginVertical("Box");
                 EditorGUILayout.LabelField("Noise lookup:");
-                cellularNoise.OnEditorGUI(uTerrain);
+                cellularNoise.OnEditorGUI(uTerrain, graph);
                 EditorGUILayout.EndVertical();
             }
         } else if (NoiseType == FastNoise.NoiseType.CubicFractal ||

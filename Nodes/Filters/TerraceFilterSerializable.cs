@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UltimateTerrains;
-using UltimateTerrainsEditor;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -20,15 +19,15 @@ public class TerraceFilterSerializable : FilterNodeSerializable
     public override int InputCount {
         get { return 3; }
     }
-    
+
     [SerializeField] private float width = 0.1f;
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorGUIUtility.labelWidth = 60;
         width = EditorGUILayout.FloatField("Width", width);
-        base.OnEditorGUI(uTerrain);
+        base.OnEditorGUI(uTerrain, graph);
         EditorGUIUtility.labelWidth = 0;
 #endif
     }

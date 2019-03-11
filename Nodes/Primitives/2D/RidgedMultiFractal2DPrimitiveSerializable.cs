@@ -12,11 +12,10 @@ using UnityEditor;
 [Serializable]
 public class RidgedMultiFractal2DPrimitiveSerializable : Primitive2DNodeSerializable
 {
-
     public override string Title {
         get { return "LibNoise Ridged-Multifractal 2D"; }
     }
-    
+
     // Useful properties for the module
     [SerializeField] private float frequency = 0.001f;
     [SerializeField] private float scale = 1f;
@@ -55,7 +54,7 @@ public class RidgedMultiFractal2DPrimitiveSerializable : Primitive2DNodeSerializ
         set { quality = value; }
     }
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         Frequency = EditorGUILayout.FloatField("Frequency:", Frequency);

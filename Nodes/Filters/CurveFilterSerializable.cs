@@ -21,7 +21,7 @@ public class CurveFilterSerializable : FilterNodeSerializable
     [SerializeField] private Vector2 inBounds = new Vector2(-1, 1);
     [SerializeField] private Vector2 outBounds = new Vector2(-1, 1);
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
 
@@ -32,9 +32,9 @@ public class CurveFilterSerializable : FilterNodeSerializable
         outBounds = EditorUtils.MinMaxField("Output min/max", outBounds);
         if (outBounds.y < outBounds.x + 0.001f)
             outBounds.y = outBounds.x + 0.001f;
-        
+
         curve = EditorGUILayout.CurveField(curve, GUILayout.Width(100), GUILayout.Height(80));
-        base.OnEditorGUI(uTerrain);
+        base.OnEditorGUI(uTerrain, graph);
 #endif
     }
 

@@ -20,16 +20,16 @@ public class ScaleBiasFilterSerializable : FilterNodeSerializable
     [SerializeField] private float scale = 1f;
     [SerializeField] private float bias = 0f;
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorUtils.CenteredBoxedLabelField("out = in * scale\n+ bias");
         EditorGUIUtility.labelWidth = 60;
-        
+
         scale = EditorGUILayout.FloatField("Scale", scale, GUILayout.Width(100));
         bias = EditorGUILayout.FloatField("Bias", bias, GUILayout.Width(100));
-        
-        base.OnEditorGUI(uTerrain);
+
+        base.OnEditorGUI(uTerrain, graph);
         EditorGUIUtility.labelWidth = 0;
 #endif
     }

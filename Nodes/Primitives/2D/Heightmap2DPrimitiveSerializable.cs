@@ -20,7 +20,7 @@ public class Heightmap2DPrimitiveSerializable : Primitive2DNodeSerializable
     [SerializeField] private Texture2D heightmap;
     [SerializeField] private float heightScale;
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         fromX = EditorGUILayout.IntField("min X:", fromX);

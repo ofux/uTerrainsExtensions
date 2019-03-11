@@ -12,7 +12,6 @@ using UnityEditor;
 [Serializable]
 public class HeterogeneousMultiFractal3DPrimitiveSerializable : Primitive3DNodeSerializable
 {
-
     public override string Title {
         get { return "LibNoise Heterogeneous-Multifractal 3D"; }
     }
@@ -23,7 +22,7 @@ public class HeterogeneousMultiFractal3DPrimitiveSerializable : Primitive3DNodeS
     [SerializeField] private int seed = PrimitiveModule.DefaultSeed;
     [SerializeField] private NoiseQuality quality = NoiseQuality.Standard;
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         frequency = EditorGUILayout.FloatField("Frequency:", frequency);

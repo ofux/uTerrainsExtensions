@@ -16,16 +16,20 @@ public class GenericCombinerSerializable : CombinerNodeSerializable
     public override string Title {
         get { return "Blend"; }
     }
-    
+
     public enum CombinerType
     {
-        Add, Sub, Mul, Min, Max
+        Add,
+        Sub,
+        Mul,
+        Min,
+        Max
     }
 
     [SerializeField] private CombinerType combinerType;
     [SerializeField] private float inWeight = 0.5f;
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         var text = "";
@@ -46,6 +50,7 @@ public class GenericCombinerSerializable : CombinerNodeSerializable
                 text = "out = max(in1, in2)";
                 break;
         }
+
         EditorUtils.CenteredBoxedLabelField(text);
         combinerType = (CombinerType) EditorGUILayout.EnumPopup(combinerType);
         if (combinerType == CombinerType.Add || combinerType == CombinerType.Sub) {

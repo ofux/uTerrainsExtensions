@@ -12,18 +12,17 @@ using UnityEditor;
 [Serializable]
 public class HybridMultiFractal2DPrimitiveSerializable : Primitive2DNodeSerializable
 {
-
     public override string Title {
         get { return "LibNoise Hybrid-Multifractal 2D"; }
     }
-    
+
     // Useful properties for the module
     [SerializeField] private float frequency = 1f / 90f;
     [SerializeField] private float scale = 1f;
     [SerializeField] private int seed = PrimitiveModule.DefaultSeed;
     [SerializeField] private NoiseQuality quality = NoiseQuality.Standard;
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         frequency = EditorGUILayout.FloatField("Frequency:", frequency);

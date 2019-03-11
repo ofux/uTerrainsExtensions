@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UltimateTerrains;
 using UltimateTerrainsEditor;
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -17,12 +16,12 @@ public class AbsFilterSerializable : FilterNodeSerializable
         get { return "Abs"; }
     }
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorGUIUtility.labelWidth = 60;
         EditorUtils.CenteredBoxedLabelField("out = |in|");
-        base.OnEditorGUI(uTerrain);
+        base.OnEditorGUI(uTerrain, graph);
         EditorGUIUtility.labelWidth = 0;
 #endif
     }

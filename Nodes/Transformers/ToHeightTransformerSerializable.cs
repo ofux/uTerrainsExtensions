@@ -16,14 +16,14 @@ public class ToHeightTransformerSerializable : TransformerNodeSerializable
     public override string Title {
         get { return "To Height"; }
     }
-    
+
     public override NodeLayer Layer {
         get { return NodeLayer.Layer3D; }
     }
-    
+
     [SerializeField] private float scale = 1f;
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorUtils.CenteredBoxedLabelField("out = y - in * scale");

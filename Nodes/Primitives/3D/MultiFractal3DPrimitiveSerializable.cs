@@ -12,11 +12,10 @@ using UnityEditor;
 [Serializable]
 public class MultiFractal3DPrimitiveSerializable : Primitive3DNodeSerializable
 {
-
     public override string Title {
         get { return "LibNoise Multifractal 3D"; }
     }
-    
+
     // Useful properties for the module
     [SerializeField] private float frequency = 0.01f;
     [SerializeField] private float scale = 1f;
@@ -43,7 +42,7 @@ public class MultiFractal3DPrimitiveSerializable : Primitive3DNodeSerializable
         set { quality = value; }
     }
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         Frequency = EditorGUILayout.FloatField("Frequency:", Frequency);

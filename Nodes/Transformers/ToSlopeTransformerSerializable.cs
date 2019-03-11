@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UltimateTerrains;
 using UltimateTerrainsEditor;
-using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
 
 #endif
 
@@ -16,12 +14,12 @@ public class ToSlopeTransformerSerializable : TransformerNodeSerializable
     public override string Title {
         get { return "To Slope"; }
     }
-    
+
     public override NodeLayer Layer {
         get { return NodeLayer.Layer2D; }
     }
-    
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorUtils.CenteredBoxedLabelField("Uses Sobel Filter.\n" +

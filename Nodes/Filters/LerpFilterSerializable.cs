@@ -20,13 +20,13 @@ public class LerpFilterSerializable : FilterNodeSerializable
     [SerializeField] private Vector2 inBounds = new Vector2(-1, 1);
     [SerializeField] private Vector2 outBounds = new Vector2(-1, 1);
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorUtils.CenteredBoxedLabelField(string.Format("in ∈ [{0},{1}]\n=> out ∈ [{2},{3}]",
-                                                          inBounds.x, inBounds.y, outBounds.x, outBounds.y), 
+                                                          inBounds.x, inBounds.y, outBounds.x, outBounds.y),
                                             GUILayout.MaxWidth(100));
-        
+
         EditorGUILayout.BeginVertical(GUILayout.MaxWidth(100));
 
         inBounds = EditorUtils.MinMaxField("Input min/max", inBounds);
@@ -36,9 +36,9 @@ public class LerpFilterSerializable : FilterNodeSerializable
         outBounds = EditorUtils.MinMaxField("Output min/max", outBounds);
         if (outBounds.y < outBounds.x + 0.001f)
             outBounds.y = outBounds.x + 0.001f;
-        
+
         EditorGUILayout.EndVertical();
-        base.OnEditorGUI(uTerrain);
+        base.OnEditorGUI(uTerrain, graph);
 #endif
     }
 

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UltimateTerrains;
 using LibNoise;
+using UltimateTerrains;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -12,11 +12,10 @@ using UnityEditor;
 [Serializable]
 public sealed class Simplex3DPrimitiveSerializable : Primitive3DNodeSerializable
 {
-
     public override string Title {
         get { return "Simplex 3D"; }
     }
-    
+
     // Useful properties for the module
     [SerializeField] private float frequency = 0.005f;
     [SerializeField] private float scale = 1f;
@@ -43,7 +42,7 @@ public sealed class Simplex3DPrimitiveSerializable : Primitive3DNodeSerializable
         set { quality = value; }
     }
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         Frequency = EditorGUILayout.FloatField("Frequency:", Frequency);

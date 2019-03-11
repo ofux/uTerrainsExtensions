@@ -17,15 +17,15 @@ public class BandwidthFilterSerializable : FilterNodeSerializable
         get { return "Bandwidth"; }
     }
 
-    [SerializeField] private Vector2 bandwidth = new Vector2(-1,1);
+    [SerializeField] private Vector2 bandwidth = new Vector2(-1, 1);
 
-    public override void OnEditorGUI(UltimateTerrain uTerrain)
+    public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {
 #if UNITY_EDITOR
         EditorGUIUtility.labelWidth = 60;
         EditorUtils.CenteredBoxedLabelField(string.Format("out=1 if in∈[{0},{1}]\nout=0 otherwise", bandwidth.x, bandwidth.y));
         bandwidth = EditorUtils.MinMaxField(bandwidth);
-        base.OnEditorGUI(uTerrain);
+        base.OnEditorGUI(uTerrain, graph);
         EditorGUIUtility.labelWidth = 0;
 #endif
     }

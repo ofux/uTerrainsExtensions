@@ -21,7 +21,7 @@ namespace UltimateTerrains
             get { return 200; }
         }
 
-        public override void OnEditorGUI(UltimateTerrain uTerrain)
+        public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
         {
 #if UNITY_EDITOR
             comment = EditorGUILayout.TextArea(comment);
