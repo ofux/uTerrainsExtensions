@@ -19,16 +19,16 @@ public sealed class TunnelNetwork3DPrimitiveSerializable : Primitive3DNodeSerial
     // Useful properties for the module
     [SerializeField] private float frequency = 0.005f;
     [SerializeField] private int seed = PrimitiveModule.DefaultSeed;
-    [SerializeField] private float frequencyAltitude = 0.008f;
-    [SerializeField] private float scaleAltitude = 40f;
+    [SerializeField] private float frequencyAltitude = 0.003f;
+    [SerializeField] private float scaleAltitude = 100f;
     [SerializeField] private float baseAltitude = 0f;
     [SerializeField] private float tunnelsHeight = 20f;
-    [SerializeField] private float threshold = 0.8f;
+    [SerializeField] private float threshold = 0.7f;
 
     [SerializeField] private float frequencyPerturbation = 0.03f;
-    [SerializeField] private float scalePerturbation = 5f;
+    [SerializeField] private float scalePerturbation = 6f;
     [SerializeField] private float frequencyMicroPerturbation = 0.1f;
-    [SerializeField] private float scaleMicroPerturbation = 1f;
+    [SerializeField] private float scaleMicroPerturbation = 2f;
 
     public override void OnEditorGUI(UltimateTerrain uTerrain, IReadOnlyFlowGraph graph)
     {

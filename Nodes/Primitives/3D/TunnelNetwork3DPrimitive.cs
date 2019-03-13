@@ -48,7 +48,7 @@ public class TunnelNetwork3DPrimitive : Primitive3DNode
 
     public override double Execute(double x, double y, double z, CallableNode flow)
     {
-        var altitude = baseAltitude; // + simplexAltitude.GetValue(x * frequencyAltitude, z * frequencyAltitude) * scaleAltitude;
+        var altitude = baseAltitude + simplexAltitude.GetValue(x * frequencyAltitude, z * frequencyAltitude) * scaleAltitude;
 
         if (y < altitude - tunnelsHeight - HeightMargin || y > altitude + tunnelsHeight + HeightMargin) {
             return -HeightMargin;
