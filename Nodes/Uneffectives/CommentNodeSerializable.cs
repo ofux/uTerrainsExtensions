@@ -9,7 +9,7 @@ namespace UltimateTerrains
 {
     [PrettyTypeName("Comment")]
     [Serializable]
-    public class CommentNodeSerializable : UneffectiveNodeSerializable
+    public class CommentNodeSerializable : IneffectiveNodeSerializable
     {
         [SerializeField] private string comment;
 
