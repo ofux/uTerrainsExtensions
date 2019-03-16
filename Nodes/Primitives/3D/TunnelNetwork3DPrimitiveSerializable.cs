@@ -35,11 +35,12 @@ public sealed class TunnelNetwork3DPrimitiveSerializable : Primitive3DNodeSerial
 #if UNITY_EDITOR
         frequency = EditorGUILayout.FloatField("Frequency:", frequency);
         seed = EditorGUILayout.IntField("Seed:", seed);
-        frequencyAltitude = EditorGUILayout.FloatField("Frequency Altitude:", frequencyAltitude);
+        frequencyAltitude = EditorGUILayout.FloatField("Frequency altitude:", frequencyAltitude);
         scaleAltitude = EditorGUILayout.FloatField("Scale altitude:", scaleAltitude);
         baseAltitude = EditorGUILayout.FloatField("Base altitude:", baseAltitude);
         tunnelsHeight = EditorGUILayout.FloatField("Tunnels height:", tunnelsHeight);
-        threshold = EditorGUILayout.FloatField("Threshold:", threshold);
+        EditorGUILayout.LabelField("The threshold affect the tunnels width");
+        threshold = EditorGUILayout.Slider("Threshold:", threshold, 0f, 1f);
         frequencyPerturbation = EditorGUILayout.FloatField("Perturbation freq.:", frequencyPerturbation);
         scalePerturbation = EditorGUILayout.FloatField("Perturbation scale:", scalePerturbation);
         frequencyMicroPerturbation = EditorGUILayout.FloatField("Micro Perturbation freq.:", frequencyMicroPerturbation);

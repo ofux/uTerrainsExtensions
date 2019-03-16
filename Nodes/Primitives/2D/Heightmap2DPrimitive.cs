@@ -9,7 +9,7 @@ public class Heightmap2DPrimitive : Primitive2DNode
     private readonly int height;
     private readonly double voxel2PixelPosX;
     private readonly double voxel2PixelPosZ;
-    private readonly double[] heights;
+    private readonly float[] heights;
 
     public Heightmap2DPrimitive(int fromX, int fromZ, int toX, int toZ, Texture2D heightmap, double heightScale)
     {
@@ -20,11 +20,11 @@ public class Heightmap2DPrimitive : Primitive2DNode
         width = heightmap.width;
         height = heightmap.height;
 
-        heights = new double[width * height];
+        heights = new float[width * height];
 
         for (var x = 0; x < width; ++x) {
             for (var y = 0; y < height; ++y) {
-                heights[x + width * y] = heightmap.GetPixel(x, y).r * heightScale;
+                heights[x + width * y] = (float) (heightmap.GetPixel(x, y).r * heightScale);
             }
         }
     }
@@ -35,9 +35,9 @@ public class Heightmap2DPrimitive : Primitive2DNode
         var iz = (z - fromZ) * voxel2PixelPosZ;
         var hx = Mathf.Clamp((int) ix, 0, width - 1);
         var hz = Mathf.Clamp((int) iz, 0, height - 1);
-        
+
         if (hx < 0 || hz < 0 || hx >= width - 1 || hz >= height - 1) {
-            return 1.0;
+            return 0;
         }
 
         var h00 = heights[hx + width * hz];
