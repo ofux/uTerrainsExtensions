@@ -32,6 +32,10 @@ public class PlayerBuilder : MonoBehaviour
     public bool PreventPlayerMovesUntilLoaded;
     public bool KeepPlayerAboveGround;
 
+    public float pathfinderStep = 1f;
+    public float pathfinderMaxSlope = 0.5f;
+    public bool pathfinderGroundOnly = true;
+
     private readonly List<string> operationTypes = new List<string> {SphereName, PaintName, AdditiveSphereName, SmoothName, SharpenName, AxisAlignedCubeName, CapsuleName, CylinderName, ParallelepipedName};
 
     private Vector3 initialPlayerPos;
@@ -249,7 +253,7 @@ public class PlayerBuilder : MonoBehaviour
             }
 
             if (Input.GetKeyUp(KeyCode.P)) {
-                pathTester.DebugPath();
+                pathTester.DebugPath(pathfinderStep, pathfinderMaxSlope, pathfinderGroundOnly);
             }
         }
 

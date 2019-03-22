@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using UltimateTerrains;
 using UltimateTerrains.Pathfinder;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 /// <summary>
 /// A simple behaviour to test path finding. Press 'I' to set start point, move where you want, and then press 'I' again to
@@ -45,19 +47,23 @@ public class PathTester
 
         Debug.Log(string.Format("Searching path from {0} to {1}...", start, end));
         var pathFinder = new PathFinder(terrain);
+
+        var watch = Stopwatch.StartNew();
         SearchNode path;
         if (aboveGroundOnly) {
-            path = pathFinder.FindPath(start, end, step, maxSlope, false);
+            path = pathFinder.FindPath(start, end, step, maxSlope);
         } else {
-            path = pathFinder.FindPathInAir(start, end, step, false);
+            path = pathFinder.FindPathInAir(start, end, step);
         }
 
+        watch.Stop();
+
         if (path == null) {
-            Debug.Log("PATH NOT FOUND");
+            Debug.Log(string.Format("PATH NOT FOUND (in {0}ms)", watch.ElapsedMilliseconds));
             return;
         }
 
-        Debug.Log("PATH FOUND");
+        Debug.Log(string.Format("PATH FOUND (in {0}ms)", watch.ElapsedMilliseconds));
 
         var current = path;
         while (current != null) {
