@@ -50,6 +50,7 @@ public class PlayerBuilder : MonoBehaviour
     private bool dig;
     private bool clicking;
     private Vector3? firstClickPosition;
+    private PathTester pathTester;
 
     // Use this for initialization
     private void Start()
@@ -94,6 +95,7 @@ public class PlayerBuilder : MonoBehaviour
         BrushSize = brushSizeSlider.value;
         targetVoxelText.text = "";
         dig = digToggle.isOn;
+        pathTester = new PathTester(Terrain);
     }
 
     private void LoadReticles()
@@ -241,6 +243,13 @@ public class PlayerBuilder : MonoBehaviour
             if (Input.GetMouseButtonDown(1)) {
                 var targetVoxel = Terrain.GetVoxelAt(Terrain.Converter.UnityToVoxelPositionFloor(wpos));
                 targetVoxelText.text = targetVoxel.ToString();
+                pathTester.Start = pathTester.End;
+                pathTester.End = (Vector3d) wpos;
+                pathTester.ClearCubes();
+            }
+
+            if (Input.GetKeyUp(KeyCode.P)) {
+                pathTester.DebugPath();
             }
         }
 
