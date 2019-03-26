@@ -49,7 +49,7 @@ public class PathTester
         var pathFinder = new PathFinder(terrain);
 
         var watch = Stopwatch.StartNew();
-        SearchNode path;
+        PathFinder.Result path;
         if (aboveGroundOnly) {
             path = pathFinder.FindPath(start, end, step, maxSlope);
         } else {
@@ -58,14 +58,14 @@ public class PathTester
 
         watch.Stop();
 
-        if (path == null) {
+        if (!path.Found) {
             Debug.Log(string.Format("PATH NOT FOUND (in {0}ms)", watch.ElapsedMilliseconds));
             return;
         }
 
         Debug.Log(string.Format("PATH FOUND (in {0}ms)", watch.ElapsedMilliseconds));
 
-        var current = path;
+        var current = path.FirstNode;
         while (current != null) {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.position = terrain.Converter.VoxelToUnityPosition(current.Position);
