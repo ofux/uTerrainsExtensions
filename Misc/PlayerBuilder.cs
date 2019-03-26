@@ -245,15 +245,19 @@ public class PlayerBuilder : MonoBehaviour
             }
 
             if (Input.GetMouseButtonDown(1)) {
-                var targetVoxel = Terrain.GetVoxelAt(Terrain.Converter.UnityToVoxelPositionFloor(wpos));
+                var voxelWorldPos = Terrain.Converter.UnityToVoxelPosition(wpos);
+                var targetVoxel = Terrain.GetVoxelAt(voxelWorldPos);
                 targetVoxelText.text = targetVoxel.ToString();
+
                 pathTester.Start = pathTester.End;
-                pathTester.End = (Vector3d) wpos;
+                pathTester.End = voxelWorldPos;
                 pathTester.ClearCubes();
             }
 
             if (Input.GetKeyUp(KeyCode.P)) {
-                pathTester.DebugPath(pathfinderStep, pathfinderMaxSlope, pathfinderGroundOnly);
+                // Find path asynchronously to avoid affecting the frame rate.
+                // See the code of PathTester.cs for an example of using async path-finder
+                StartCoroutine(pathTester.DebugPathCoroutine(pathfinderStep, pathfinderMaxSlope, pathfinderGroundOnly));
             }
         }
 

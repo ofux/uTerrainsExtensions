@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UltimateTerrains;
@@ -32,49 +33,74 @@ public class PathTester
         set { end = value; }
     }
 
-    public void DebugPath(double step = 1.0, double maxSlope = 0.7, bool aboveGroundOnly = true)
+    public IEnumerator DebugPathCoroutine(double step = 1.0, double maxSlope = 0.7, bool aboveGroundOnly = true)
     {
+        // Just make sure start point and end point are above the ground
         if (aboveGroundOnly) {
-            while (end.y > 0) {
-                end.y--;
-                var voxel = terrain.GetVoxelAt(end);
-                if (voxel.IsInside) {
-                    end.y++;
-                    break;
-                }
-            }
+            EnsureStartEndPointsAreAboveTheGround(step, maxSlope);
         }
 
         Debug.Log(string.Format("Searching path from {0} to {1}...", start, end));
-        var pathFinder = new PathFinder(terrain);
 
         var watch = Stopwatch.StartNew();
+
         PathFinder.Result path;
         if (aboveGroundOnly) {
-            path = pathFinder.FindPath(start, end, step, maxSlope);
+            path = terrain.FindPathAsync(start, end, step, maxSlope);
         } else {
-            path = pathFinder.FindPathInAir(start, end, step);
+            path = terrain.FindPathInAirAsync(start, end, step);
+        }
+
+        // Wait for the result
+        while (!path.Done) {
+            yield return null;
         }
 
         watch.Stop();
 
-        if (!path.Found) {
-            Debug.Log(string.Format("PATH NOT FOUND (in {0}ms)", watch.ElapsedMilliseconds));
-            return;
+        if (path.Found) {
+            Debug.Log(string.Format("PATH FOUND (in less than {0}ms)", watch.ElapsedMilliseconds));
+
+            var currentNode = path.FirstNode;
+            while (currentNode != null) {
+                var cube = CreateCubeAtNode(currentNode);
+                cubes.Add(cube);
+                currentNode = currentNode.Next;
+            }
+        } else {
+            Debug.Log(string.Format("PATH NOT FOUND (in less than {0}ms)", watch.ElapsedMilliseconds));
+        }
+    }
+
+    private GameObject CreateCubeAtNode(SearchNode currentNode)
+    {
+        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.transform.position = terrain.Converter.VoxelToUnityPosition(currentNode.Position);
+        cube.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        cube.GetComponent<Collider>().enabled = false;
+        cube.GetComponent<Renderer>().material.color = Color.yellow;
+        cube.layer = 2;
+        return cube;
+    }
+
+    private void EnsureStartEndPointsAreAboveTheGround(double step, double maxSlope)
+    {
+        while (start.y > -200 && start.y < 200) {
+            start.y -= step * maxSlope;
+            var voxel = terrain.GetVoxelAt(start);
+            if (voxel.IsInside) {
+                start.y += step * maxSlope;
+                break;
+            }
         }
 
-        Debug.Log(string.Format("PATH FOUND (in {0}ms)", watch.ElapsedMilliseconds));
-
-        var current = path.FirstNode;
-        while (current != null) {
-            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.position = terrain.Converter.VoxelToUnityPosition(current.Position);
-            cube.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            cube.GetComponent<Collider>().enabled = false;
-            cube.GetComponent<Renderer>().material.color = Color.yellow;
-            cube.layer = 2;
-            cubes.Add(cube);
-            current = current.Next;
+        while (end.y > -200 && end.y < 200) {
+            end.y -= step * maxSlope;
+            var voxel = terrain.GetVoxelAt(end);
+            if (voxel.IsInside) {
+                end.y += step * maxSlope;
+                break;
+            }
         }
     }
 
