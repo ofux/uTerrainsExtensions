@@ -313,7 +313,7 @@ public class PlayerBuilder : MonoBehaviour
         reticleSpherical.EnableRenderer(true);
         reticleSpherical.SetPositionAndSize(wpos, BrushSize);
 
-        if (clicking && Terrain.OperationsManager.IsReadyToComputeAsync) {
+        if (clicking && Terrain.OperationsManager.IsReadyToComputeAsync && voxelType != null) {
             Terrain.OperationsManager
                    .Add(Paint.CreateFromUnityWorld(Terrain, wpos, BrushSize, voxelType), true)
                    .PerformAll(asyncOperations);
