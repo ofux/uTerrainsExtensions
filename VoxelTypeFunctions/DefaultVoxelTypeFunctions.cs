@@ -10,8 +10,7 @@ namespace UltimateTerrains
     [Serializable]
     public class DefaultVoxelTypeFunctions : AbstractVoxelTypeFunctions
     {
-        [SerializeField] private Color32
-            vertexColor = Color.clear;
+        [SerializeField] private Color32 vertexColor = Color.clear;
 
         public override Color32 GetVertexColor(Vector3d meshWorldPosition, Vector3 vertexPosition, Vector3 vertexNormal)
         {
