@@ -14,6 +14,7 @@ public class Paint : IOperation
     protected Vector3i from;
     protected Vector3i to;
     protected double radiusSquared;
+    protected UnitConverter converter;
 
     // Empty constructor needed by serialization
     public Paint()
@@ -85,7 +86,7 @@ public class Paint : IOperation
 
     public int FindAffectedColliders(Collider[] collidersBuffer)
     {
-        return 0;
+        return Physics.OverlapSphereNonAlloc((Vector3)converter.VoxelToUnityPosition(voxelPosition), (float) converter.VoxelToUnityDisance(voxelRadius), collidersBuffer);
     }
 
     public virtual void OnOperationDone()
@@ -107,6 +108,7 @@ public class Paint : IOperation
 
     protected void Init(UltimateTerrain uTerrain)
     {
+        converter = uTerrain.Converter;
         var halfSize = new Vector3i(voxelRadius, voxelRadius, voxelRadius);
         from = voxelPosition - halfSize;
         to = voxelPosition + halfSize;
