@@ -10,7 +10,7 @@ namespace UltimateTerrains
     [Serializable]
     public class DefaultVoxelTypeFunctions : AbstractVoxelTypeFunctions
     {
-        [SerializeField] private Color32 vertexColor = Color.red;
+        [SerializeField] private Color32 vertexColor = new Color32(255, 0, 0, 0);
         [SerializeField] private Vector4 uv2 = Vector4.zero;
 
         public override Color32 GetVertexColor(Vector3d meshWorldPosition, Vector3 vertexPosition, Vector3 vertexNormal)
@@ -26,8 +26,10 @@ namespace UltimateTerrains
         public override void OnEditorGUI(UltimateTerrain uTerrain, VoxelType voxelType)
         {
 #if UNITY_EDITOR
-            vertexColor = EditorGUILayout.ColorField("Vertex Color:", vertexColor);
-            uv2 = EditorGUILayout.ColorField("UV2 (X = R, Y = G):", uv2);
+            var vColLabel = new GUIContent("Vertex Color:", "(RGBA) R <=> 1st texture, G <=> 2nd texture, B <=> 3rd texture, A <=> 4th texture");
+            vertexColor = EditorGUILayout.ColorField(vColLabel, vertexColor);
+            var vUV2Label = new GUIContent("UV2 (X = R, Y = G):", "(RG) R <=> 5th texture, G <=> 6th texture");
+            uv2 = EditorGUILayout.ColorField(vUV2Label, uv2);
 #endif
         }
     }

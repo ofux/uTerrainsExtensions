@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -10,11 +10,11 @@ namespace UltimateTerrains
     [Serializable]
     public class TopSidesNoLerpColorsVoxelTypeFunctions : AbstractVoxelTypeFunctions
     {
-        [SerializeField] private Color32 topColor = Color.clear;
-        [SerializeField] private Vector4 topUv2 = Color.clear;
-        [SerializeField] private Color32 sidesColor = Color.clear;
-        [SerializeField] private Vector4 sidesUv2 = Color.clear;
-        [SerializeField] private float slopeLimit = 0f;
+        [SerializeField] private Color32 topColor = new Color32(255, 0, 0, 0);
+        [SerializeField] private Vector4 topUv2 = Vector4.zero;
+        [SerializeField] private Color32 sidesColor = new Color32(0, 255, 0, 0);
+        [SerializeField] private Vector4 sidesUv2 = Vector4.zero;
+        [SerializeField] private float slopeLimit = 0.7f;
 
         public override Color32 GetVertexColor(Vector3d meshWorldPosition, Vector3 vertexPosition, Vector3 vertexNormal)
         {
@@ -29,11 +29,18 @@ namespace UltimateTerrains
         public override void OnEditorGUI(UltimateTerrain uTerrain, VoxelType voxelType)
         {
 #if UNITY_EDITOR
-            topColor = EditorGUILayout.ColorField("Top Color:", topColor);
-            topUv2 = EditorGUILayout.ColorField("Top UV2 (x=r, y=g, z=b, w=a):", topUv2);
-            sidesColor = EditorGUILayout.ColorField("Sides Color:", sidesColor);
-            sidesUv2 = EditorGUILayout.ColorField("Sides UV2 (x=r, y=g, z=b, w=a):", sidesUv2);
-            slopeLimit = EditorGUILayout.Slider("Slope limit:", slopeLimit, -1f, 1f);
+            var vColLabel = new GUIContent("Top Color:", "(RGBA) R <=> 1st texture, G <=> 2nd texture, B <=> 3rd texture, A <=> 4th texture");
+            topColor = EditorGUILayout.ColorField(vColLabel, topColor);
+            var vUV2Label = new GUIContent("Top UV2:", "(RG) R <=> 5th texture, G <=> 6th texture");
+            topUv2 = EditorGUILayout.ColorField(vUV2Label, topUv2);
+
+            vColLabel = new GUIContent("Sides Color:", "(RGBA) R <=> 1st texture, G <=> 2nd texture, B <=> 3rd texture, A <=> 4th texture");
+            sidesColor = EditorGUILayout.ColorField(vColLabel, sidesColor);
+            vUV2Label = new GUIContent("Sides UV2:", "(RG) R <=> 5th texture, G <=> 6th texture");
+            sidesUv2 = EditorGUILayout.ColorField(vUV2Label, sidesUv2);
+
+            var slopeLabel = new GUIContent("Top min normal.y:", "Min normal.y of ground to be considered as Top. If normal.y is lower than this, it will be considered as Sides.");
+            slopeLimit = EditorGUILayout.Slider(slopeLabel, slopeLimit, -1f, 1f);
 #endif
         }
     }
